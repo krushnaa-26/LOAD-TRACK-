@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LOAD TRACK — RTO Mobile Officer Portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="rto.css">
+</head>
+<body>
+
+    <!-- MOBILE CONTAINER -->
+    <div class="rto-app-shell">
+
+        <!-- LOGIN SCREEN -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-header">
+                <div class="rto-emblem"><i class="fa-solid fa-shield-halved"></i></div>
+                <h1>RTO OFFICER PORTAL</h1>
+                <p>LOAD TRACK Enforcement System</p>
+            </div>
+
+            <div class="login-card">
+                <div id="loginAlert" class="alert alert-danger hidden"></div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="badgeInput"><i class="fa-solid fa-id-badge"></i> Officer Badge ID</label>
+                        <input type="text" id="badgeInput" class="rto-input mono-font" placeholder="e.g. RTO-MH04-101" required value="RTO-MH04-101">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passwordInput"><i class="fa-solid fa-lock"></i> Password</label>
+                        <input type="password" id="passwordInput" class="rto-input" placeholder="Password" required value="password123">
+                    </div>
+
+                    <button type="submit" id="loginBtn" class="rto-btn rto-btn-primary btn-block">
+                        <i class="fa-solid fa-right-to-bracket"></i> OFFICER LOGIN
+                    </button>
+                </form>
+
+                <!-- QUICK TEST CHIPS -->
+                <div class="quick-login-section">
+                    <span>Quick Test Accounts:</span>
+                    <div class="quick-chips">
+                        <button type="button" class="chip-btn" onclick="fillLogin('RTO-MH04-101', 'Kharegaon Toll')">MH-04 Sharma</button>
+                        <button type="button" class="chip-btn" onclick="fillLogin('RTO-MH07-102', 'Vashi Toll')">MH-07 Patel</button>
+                        <button type="button" class="chip-btn" onclick="fillLogin('RTO-MH12-103', 'Khed Toll')">MH-12 Deshmukh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN LOGGED-IN PORTAL SCREEN -->
+        <div id="portalScreen" class="screen">
+            
+            <!-- TOP APP HEADER -->
+            <header class="rto-header">
+                <div class="header-left">
+                    <div class="officer-badge-icon"><i class="fa-solid fa-user-shield"></i></div>
+                    <div>
+                        <div id="officerName" class="officer-name">Insp. Rajesh Sharma</div>
+                        <div id="officerJurisdiction" class="officer-jurisdiction">Kharegaon Toll Plaza</div>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="icon-btn" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            </header>
+
+            <!-- MAIN VIEW CONTAINER -->
+            <div class="rto-content-area">
+                
+                <!-- VIEW 1: NOTIFICATIONS LIST -->
+                <div id="notificationsView" class="rto-view active">
+                    <div class="view-title-bar">
+                        <h3><i class="fa-solid fa-bell"></i> LIVE ENFORCEMENT ALERTS</h3>
+                        <span id="unreadCountBadge" class="pulse-badge">0 NEW</span>
+                    </div>
+
+                    <div id="notificationsList" class="notif-list">
+                        <div class="loading-state"><i class="fa-solid fa-spinner fa-spin"></i> Polling live toll alerts...</div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: INSPECTION DETAIL SCREEN -->
+                <div id="inspectionView" class="rto-view">
+                    <button class="back-link-btn" onclick="showRtoView('notificationsView')">
+                        <i class="fa-solid fa-chevron-left"></i> Back to Notifications
+                    </button>
+
+                    <div id="inspectionDetailContainer">
+                        <div class="loading-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading inspection details...</div>
+                    </div>
+                </div>
+
+                <!-- VIEW 3: INSPECTION HISTORY -->
+                <div id="historyView" class="rto-view">
+                    <div class="view-title-bar">
+                        <h3><i class="fa-solid fa-clock-rotate-left"></i> INSPECTION HISTORY</h3>
+                    </div>
+
+                    <div id="historyList" class="history-list">
+                        <div class="loading-state"><i class="fa-solid fa-spinner fa-spin"></i> Fetching past inspection records...</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BOTTOM NAVIGATION BAR -->
+            <nav class="rto-bottom-nav">
+                <button class="nav-item active" onclick="showRtoView('notificationsView', this)">
+                    <div class="nav-icon-box">
+                        <i class="fa-solid fa-bell"></i>
+                        <span id="bottomNavBadge" class="nav-badge hidden">0</span>
+                    </div>
+                    <span>ALERTS</span>
+                </button>
+                <button class="nav-item" onclick="showRtoView('historyView', this)">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>HISTORY</span>
+                </button>
+            </nav>
+
+        </div>
+
+    </div>
+
+    <script src="rto.js"></script>
+</body>
+</html>
